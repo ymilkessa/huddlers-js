@@ -1,0 +1,32 @@
+{
+  "name": "huddlers",
+  "version": "0.0.2",
+  "description": "SDK interface with the Huddlers Nostr caching API",
+  "author": "Yofti Milkessa",
+  "scripts": {
+    "test": "jest",
+    "prebuild": "npm run clean",
+    "build": "npx tsc",
+    "debug": "npx ts-node src/index.ts",
+    "prepublish": "npm run build",
+    "clean": "rimraf dist"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "jest": "^29.7.0",
+    "rimraf": "^5.0.7",
+    "ts-jest": "^29.1.5",
+    "typescript": "^5.5.3"
+  },
+  "types": "./dist/src/index.d.ts",
+  "main": "./dist/src/index.js",
+  "module": "./dist/src/index.js",
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
+  "homepage": "https://github.com/ymilkessa/huddlers-js"
+}

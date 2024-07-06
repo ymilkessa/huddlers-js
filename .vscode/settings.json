@@ -1,0 +1,13 @@
+{
+  // Enable format on save
+  "editor.formatOnSave": true,
+
+  // Configure Prettier as the default formatter
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // Prettier settings
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
+  "prettier.arrowParens": "always"
+  // Add any other Prettier settings you prefer
+}

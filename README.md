@@ -12,6 +12,24 @@ npm install huddlers
 
 ## Usage
 
+Some of these functions assume that you have already created a cache on the [Huddlers Cache Maker](https://huddlers.dev/cache-maker/). (These are the functions that include a `cacheId` as a required parameter.)
+
+### fetchUserProfile
+
+Takes in a user pubkey.
+
+Returns the latest profile event (as a kind-0 Nostr Event) for the specified user.
+
+```javascript
+const pubkey = ''; // Specify the user pubkey.
+const userProfile = await fetchUserProfile({ pubkey });
+```
+
+The parameter for this function includes:
+
+`pubkey` (required): The user pubkey to fetch the profile event for.
+`url` (optional): Same as above. A URL which by default points to `https://api.huddlers.dev`.
+
 ### fetchEvents
 
 Takes in a cache ID.
@@ -29,22 +47,6 @@ The parameter for the `fetchEvents` function is an object with the following pro
 `url` (optional): The URL of the API that the SDK should fetch events from. Defaults to `https://api.huddlers.dev`.
 `limit` (optional): The maximum number of events to fetch. Defaults to 20.
 `offset` (optional): The number of events to skip. Defaults to 0.
-
-### fetchUserProfile
-
-Takes in a user pubkey.
-
-Returns the latest profile event (as a kind-0 Nostr Event) for the specified user.
-
-```javascript
-const pubkey = ''; // Specify the user pubkey.
-const userProfile = await fetchUserProfile({ pubkey });
-```
-
-The parameter for this function includes:
-
-`pubkey` (required): The user pubkey to fetch the profile event for.
-`url` (optional): Same as above. A URL which by default points to `https://api.huddlers.dev`.
 
 ### fetchCacheInfo
 

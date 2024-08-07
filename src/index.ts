@@ -1,26 +1,25 @@
-import { CacheInfoParams, fetchCacheInfo } from './fetchCacheInfo';
-import {
-  Event,
-  CacheRecordResponse,
-  FetchProfileResponse,
-  FetchEventsResponse,
-  Metadata,
-} from './types';
+import { Event, FetchProfileResponse, Metadata } from './types';
 import { FetchProfileParams, fetchUserProfile } from './fetchUserProfile';
-import { FetchEventsParams, fetchEvents } from './fetchEvents';
+import { FeedParams, FeedResponse, fetchUserFeed } from './feed';
 import { getMetadata } from './getMetadata';
 
+import {
+  fetchEventsByAuthor,
+  EventsByAuthorParams,
+  EventsByAuthorResponse,
+} from './eventsByAuthor';
+
 export {
-  CacheInfoParams,
-  fetchCacheInfo,
   Event,
-  CacheRecordResponse,
   FetchProfileResponse,
-  FetchEventsResponse,
   Metadata,
   FetchProfileParams,
   fetchUserProfile,
-  FetchEventsParams,
-  fetchEvents,
   getMetadata,
+  fetchEventsByAuthor,
+  EventsByAuthorParams,
+  EventsByAuthorResponse,
+  FeedParams,
+  FeedResponse,
+  fetchUserFeed,
 };

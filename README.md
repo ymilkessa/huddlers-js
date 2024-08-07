@@ -2,7 +2,7 @@
 
 ## Description
 
-A simple interface for the Huddlers API for Nostr.
+A simple interface for the Huddlers Caching API for Nostr.
 
 ## Installation
 
@@ -12,9 +12,7 @@ npm install huddlers
 
 ## Usage
 
-Some of these functions assume that you have already created a cache on the [Huddlers Cache Maker](https://huddlers.dev/cache-maker/). (These are the functions that include a `cacheId` as a required parameter.)
-
-### fetchUserProfile
+### `fetchUserProfile`
 
 Takes in a user pubkey.
 
@@ -22,45 +20,55 @@ Returns the latest profile event (as a kind-0 Nostr Event) for the specified use
 
 ```javascript
 const pubkey = ''; // Specify the user pubkey.
-const userProfile = await fetchUserProfile({ pubkey });
+const { profile, status } = await fetchUserProfile({ pubkey });
 ```
 
 The parameter for this function includes:
 
-`pubkey` (required): The user pubkey to fetch the profile event for.
-`url` (optional): Same as above. A URL which by default points to `https://api.huddlers.dev`.
+- `pubkey` (required): The user pubkey to fetch the profile event for.
+- `url` (optional): Same as above. A URL which by default points to `https://api.huddlers.dev`.
 
-### fetchEvents
+### `fetchUserFeed`
 
-Takes in a cache ID.
+Collects and returns the latest events from authors followed by the specified user.
 
-Returns an object containing an array of events, and an object mapping relevant author pubkeys to their latest profile events.
+The returned object contains:
+
+1. `events`: An array of events in the user's feed, in reverse chronological order.
+2. `profiles`: An object mapping relevant author pubkeys to their latest profile events.
+
+Recent events by actively followed authors are cached, resulting in a faster response time.
 
 ```javascript
-const cacheId = ''; // Specify the cache ID.
-const { events, profiles } = await fetchEvents({ cacheId });
+const pubkey = ''; // Specify the pubkey of the user requesting the feed.
+const { events, profiles } = await fetchUserFeed({ pubkey });
 ```
+
+Other optional parameters include:
+
+- `url`: The URL of the API that the SDK should fetch events from. Defaults to `https://api.huddlers.dev`.
+- `limit`: The maximum number of events to fetch. Defaults to 20.
+- `until`: The timestamp to use as the latest timestamp of the events to fetch. This acts as an offset.
 
 The parameter for the `fetchEvents` function is an object with the following properties:
 
-`cacheId` (required): The cache ID to fetch events from.
-`url` (optional): The URL of the API that the SDK should fetch events from. Defaults to `https://api.huddlers.dev`.
-`limit` (optional): The maximum number of events to fetch. Defaults to 20.
-`offset` (optional): The number of events to skip. Defaults to 0.
+### `fetchEventsByAuthor`
 
-### fetchCacheInfo
+Collects and returns the latest events by the specified author.
 
-The `fetchCacheInfo` function provides information about the cache status.
+The returned object contains:
+
+1. `events`: An array of events by the specified author, in reverse chronological order.
+2. `profile`: The latest profile event of the specified author.
+
+Recent events by the author are cached, resulting in a faster response time in subsequent requests.
 
 ```javascript
-const cacheId = ''; // Specify the cache ID.
-const cacheInfo = fetchCacheInfo({ cacheId });
+const pubkey = ''; // Specify the pubkey of the author.
+const { events, profile } = await fetchEventsByAuthor({ pubkey });
 ```
 
-The parameter has these fields:
-
-`cacheId` (required): The ID of the cache whose information you want to fetch.
-`url` (optional): Same as above. A URL which by default points to `https://api.huddlers.dev`.
+This also takes in the optional parameters `url`, `limit`, and `until` as described above.
 
 ## License
 

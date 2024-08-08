@@ -1,10 +1,10 @@
-import { defaultHuddlersUrl, HuddlersEndpoints } from './constants';
+import { DefaultHuddlersUrl, HuddlersEndpoints } from './constants';
 import { FetchProfileResponse } from './types';
 
 export type FetchProfileParams = {
   pubkey: string;
   /**
-   * Defaults to 'https://api.huddlers.dev'. If you use a different service that is built on Huddlers, you can pass the URL here.
+   * Defaults to the Huddlers api url. If you use a different service that is built on Huddlers, you can pass the URL here.
    */
   url?: string;
 };
@@ -15,7 +15,7 @@ export type FetchProfileParams = {
 export const fetchUserProfile = async (
   params: FetchProfileParams,
 ): Promise<FetchProfileResponse> => {
-  const url = params.url ?? defaultHuddlersUrl;
+  const url = params.url ?? DefaultHuddlersUrl;
   const pubkey = params.pubkey;
   const fetchResponse = await fetch(
     `${url}${HuddlersEndpoints.UserProfile}?pubkey=${pubkey}`,

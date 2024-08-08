@@ -1,5 +1,5 @@
 import {
-  defaultHuddlersUrl,
+  DefaultHuddlersUrl,
   DefaultLimit,
   HuddlersEndpoints,
 } from './constants';
@@ -20,7 +20,7 @@ export type EventsByAuthorParams = {
    */
   pubkey: string;
   /**
-   * Defaults to 'https://api.huddlers.dev'. If you use a different service that is built on Huddlers, you can pass the URL here.
+   * Defaults to the Huddlers api url. If you use a different service that is built on Huddlers, you can pass the URL here.
    */
   url?: string;
   /**
@@ -56,7 +56,7 @@ export const fetchEventsByAuthor = async (
   if (until) {
     queryParams += `&until=${until}`;
   }
-  const url = params.url || defaultHuddlersUrl;
+  const url = params.url || DefaultHuddlersUrl;
 
   const fetchResponse = await fetch(
     `${url}${HuddlersEndpoints.EventsByAuthor}${queryParams}`,

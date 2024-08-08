@@ -26,7 +26,7 @@ const { profile, status } = await fetchUserProfile({ pubkey });
 The parameter for this function includes:
 
 - `pubkey` (required): The user pubkey to fetch the profile event for.
-- `url` (optional): Same as above. A URL which by default points to `https://api.huddlers.dev`.
+- `url` (optional): Same as above. A URL which by default points to the Huddlers api url.
 
 ### `fetchUserFeed`
 
@@ -46,7 +46,7 @@ const { events, profiles } = await fetchUserFeed({ pubkey });
 
 Other optional parameters include:
 
-- `url`: The URL of the API that the SDK should fetch events from. Defaults to `https://api.huddlers.dev`.
+- `url`: The URL of the API that the SDK should fetch events from. Defaults to the Huddlers api url.
 - `limit`: The maximum number of events to fetch. Defaults to 20.
 - `until`: The timestamp to use as the latest timestamp of the events to fetch. This acts as an offset.
 

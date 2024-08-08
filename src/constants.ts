@@ -1,4 +1,4 @@
-export const defaultHuddlersUrl = 'https://api.huddlers.dev';
+export const DefaultHuddlersUrl = 'https://huddlers-ovduv.ondigitalocean.app';
 
 // EndpointUserProfile         string = "/user-profile"
 // EndpointFollowList          string = "/follow-list"

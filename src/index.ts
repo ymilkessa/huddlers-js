@@ -2,6 +2,7 @@ import { Event, FetchProfileResponse, Metadata } from './types';
 import { FetchProfileParams, fetchUserProfile } from './fetchUserProfile';
 import { FeedParams, FeedResponse, fetchUserFeed } from './feed';
 import { getMetadata } from './getMetadata';
+import { DefaultHuddlersUrl } from './constants';
 
 import {
   fetchEventsByAuthor,
@@ -22,4 +23,5 @@ export {
   FeedParams,
   FeedResponse,
   fetchUserFeed,
+  DefaultHuddlersUrl,
 };

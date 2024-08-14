@@ -20,7 +20,11 @@ Returns the latest profile event (as a kind-0 Nostr Event) for the specified use
 
 ```javascript
 const pubkey = ''; // Specify the user pubkey.
-const { profile, status } = await fetchUserProfile({ pubkey });
+try {
+  const { profile } = await fetchUserProfile({ pubkey });
+} catch (error) {
+  console.error('Could not find a profile with the given pubkey.');
+}
 ```
 
 The parameter for this function includes:
@@ -41,7 +45,11 @@ Recent events by actively followed authors are cached, resulting in a faster res
 
 ```javascript
 const pubkey = ''; // Specify the pubkey of the user requesting the feed.
-const { events, profiles } = await fetchUserFeed({ pubkey });
+try {
+  const { events, profiles } = await fetchUserFeed({ pubkey });
+} catch (error) {
+  console.error('Could not find a user with the given pubkey.');
+}
 ```
 
 Other optional parameters include:
@@ -59,13 +67,17 @@ Collects and returns the latest events by the specified author.
 The returned object contains:
 
 1. `events`: An array of events by the specified author, in reverse chronological order.
-2. `profile`: The latest profile event of the specified author.
+2. `profiles`: A map containing the latest profiles of the authors of the events. This includes both the specified author as well as authors of any reposted events.
 
 Recent events by the author are cached, resulting in a faster response time in subsequent requests.
 
 ```javascript
 const pubkey = ''; // Specify the pubkey of the author.
-const { events, profile } = await fetchEventsByAuthor({ pubkey });
+try {
+  const { events, profiles } = await fetchEventsByAuthor({ pubkey });
+} catch (error) {
+  console.error('Could not find a user with the given pubkey.');
+}
 ```
 
 This also takes in the optional parameters `url`, `limit`, and `until` as described above.

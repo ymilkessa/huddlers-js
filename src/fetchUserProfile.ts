@@ -1,5 +1,9 @@
 import { DefaultHuddlersUrl, HuddlersEndpoints } from './constants';
-import { FetchProfileResponse } from './types';
+import { Event } from './types';
+
+export type FetchProfileResponse = {
+  profile: Event;
+};
 
 export type FetchProfileParams = {
   pubkey: string;

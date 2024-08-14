@@ -10,8 +10,6 @@ export type FeedResponse = {
   pubkey: string;
   events: Event[];
   profiles: Record<string, Event>;
-  num_events: number;
-  status: string;
 };
 
 export type FeedParams = {

@@ -8,10 +8,8 @@ import { isValidHex } from './utils';
 
 export type EventsByAuthorResponse = {
   pubkey: string;
-  profile: Event;
+  profiles: Record<string, Event>;
   events: Event[];
-  num_events: number;
-  status: string;
 };
 
 export type EventsByAuthorParams = {

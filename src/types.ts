@@ -18,8 +18,3 @@ export type Metadata = {
   about?: string;
   display_name?: string;
 };
-
-export type FetchProfileResponse = {
-  profile: Event;
-  status: string;
-};

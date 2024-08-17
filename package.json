@@ -1,6 +1,6 @@
 {
   "name": "huddlers",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "SDK interface with the Huddlers Nostr caching API",
   "author": "Yofti Milkessa",
   "scripts": {

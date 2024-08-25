@@ -14,6 +14,10 @@ import {
   EventsByAuthorResponse,
 } from './eventsByAuthor';
 
+import { fetchThread, ThreadParams, ThreadResponse } from './thread';
+import { fetchRoot, RootParams, RootResponse } from './root';
+import { fetchEvent, FetchEventParams, FetchEventResponse } from './event';
+
 export {
   Event,
   FetchProfileResponse,
@@ -28,4 +32,13 @@ export {
   FeedResponse,
   fetchUserFeed,
   DefaultHuddlersUrl,
+  fetchThread,
+  ThreadParams,
+  ThreadResponse,
+  fetchRoot,
+  RootParams,
+  RootResponse,
+  fetchEvent,
+  FetchEventParams,
+  FetchEventResponse,
 };

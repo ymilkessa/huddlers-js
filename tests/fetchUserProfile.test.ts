@@ -1,6 +1,6 @@
 import { fetchUserProfile } from '../src';
 import { EventKinds } from '../src/constants';
-import { testPubkeyFake, testPubkeyReal, testUrl } from './test_utils';
+import { testPubkeyFake, testPubkeyReal, testUrl } from './testUtils';
 
 describe('fetchUserProfile', () => {
   it('should return an object with a profile field for a registered public key', async () => {

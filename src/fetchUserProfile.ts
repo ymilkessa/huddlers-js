@@ -31,6 +31,9 @@ export const fetchUserProfile = async (
       },
     },
   );
+  if (!fetchResponse.ok) {
+    throw new Error(`Failed to fetch profile: ${fetchResponse.statusText}`);
+  }
   const response = (await fetchResponse.json()) as FetchProfileResponse;
   return response;
 };

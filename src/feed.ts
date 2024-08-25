@@ -66,6 +66,9 @@ export const fetchUserFeed = async (
       },
     },
   );
+  if (!fetchResponse.ok) {
+    throw new Error(`Failed to fetch feed: ${fetchResponse.statusText}`);
+  }
   const response = (await fetchResponse.json()) as FeedResponse;
   return response;
 };

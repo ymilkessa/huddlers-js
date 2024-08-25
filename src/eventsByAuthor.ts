@@ -66,6 +66,11 @@ export const fetchEventsByAuthor = async (
       },
     },
   );
+  if (!fetchResponse.ok) {
+    throw new Error(
+      `Failed to fetch events by author: ${fetchResponse.statusText}`,
+    );
+  }
   const response = (await fetchResponse.json()) as EventsByAuthorResponse;
   return response;
 };

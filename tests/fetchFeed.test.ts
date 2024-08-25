@@ -1,6 +1,6 @@
 import { fetchUserFeed, FeedParams } from '../src';
 import { EventKinds } from '../src/constants';
-import { testPubkeyReal, testUrl } from './test_utils';
+import { testPubkeyReal, testUrl } from './testUtils';
 
 describe('fetchUserFeed', () => {
   it("should fetch a user feed, given the user's public key", async () => {

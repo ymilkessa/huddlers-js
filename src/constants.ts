@@ -10,6 +10,9 @@ export const HuddlersEndpoints = {
   FollowList: '/follow-list',
   EventsByAuthor: '/events-by-author',
   Feed: '/feed',
+  Thread: '/thread',
+  Root: '/root',
+  Event: '/event',
 };
 
 export const EventKinds = {
@@ -21,6 +24,7 @@ export const EventKinds = {
 
 export const DefaultLimit = 20;
 export const DefaultOffset = 0;
+export const DefaultDepth = 2;
 
 export const HuddlersErrorCodes = {
   Success: 'success',

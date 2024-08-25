@@ -1,6 +1,6 @@
 import { fetchEventsByAuthor, EventsByAuthorParams } from '../src';
 import { EventKinds } from '../src/constants';
-import { testPubkeyReal, testUrl } from './test_utils';
+import { testPubkeyReal, testUrl } from './testUtils';
 
 describe('fetchEventsByAuthor', () => {
   it("should fetch a user's events, given the user's public key", async () => {

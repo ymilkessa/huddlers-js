@@ -1,8 +1,12 @@
-# Huddlers Javascript SDK
+# Huddlers JavaScript SDK
+
+[![npm version](https://badge.fury.io/js/huddlers.svg)](https://badge.fury.io/js/huddlers)
 
 ## Description
 
-A simple interface for the Huddlers Caching API for Nostr.
+A simple interface for the Huddlers Caching API for Nostr. This SDK provides easy-to-use functions for simultaneously retrieving both Nostr posts (called 'events') and relevant user profiles through the Huddlers API.
+
+This package supports all the features provided in the [Huddlers API docs](https://docs.huddlers.dev).
 
 ## Installation
 
@@ -12,75 +16,152 @@ npm install huddlers
 
 ## Usage
 
-### `fetchUserProfile`
+Note that all request that return Nostr events will also return the profiles of the authors of those events.
 
-Takes in a user pubkey.
+### fetchUserFeed
 
-Returns the latest profile event (as a kind-0 Nostr Event) for the specified user.
+Fetches the latest events published by the authors that a given user follows on Nostr.
 
 ```javascript
-const pubkey = ''; // Specify the user pubkey.
+import { fetchUserFeed } from 'huddlers';
+
+const pubkey = ''; // Specify the user pubkey
+try {
+  const { events, profiles } = await fetchUserFeed({ pubkey });
+
+  for (const event of events) {
+    // Log the Nostr event.
+    console.log(event);
+
+    // Log the author's profile metadata (kind-0 event)
+    console.log(profiles[event.pubkey]);
+  }
+} catch (error) {
+  console.error('Could not fetch user feed.');
+}
+```
+
+Parameters:
+
+- `pubkey` (required): The user's public key as a hexadecimal string.
+- `url` (optional): The API URL.
+- `limit` (optional): Maximum number of events to fetch. Defaults to 20.
+- `kinds` (optional): Array of event kinds to filter by.
+- `until` (optional): Fetch events until this timestamp.
+
+### fetchUserProfile
+
+Fetches the latest profile event for a specified user.
+
+```javascript
+import { fetchUserProfile } from 'huddlers';
+
+const pubkey = ''; // Specify the user pubkey
 try {
   const { profile } = await fetchUserProfile({ pubkey });
+  console.log(profile);
 } catch (error) {
   console.error('Could not find a profile with the given pubkey.');
 }
 ```
 
-The parameter for this function includes:
+Parameters:
 
-- `pubkey` (required): The user pubkey to fetch the profile event for.
-- `url` (optional): Same as above. A URL which by default points to the Huddlers api url.
+- `pubkey` (required): The user's public key as a hexadecimal string.
+- `url` (optional): The API URL. Defaults to the Huddlers API URL.
 
-### `fetchUserFeed`
+### fetchEventsByAuthor
 
-Collects and returns the latest events from authors followed by the specified user.
-
-The returned object contains:
-
-1. `events`: An array of events in the user's feed, in reverse chronological order.
-2. `profiles`: An object mapping relevant author pubkeys to their latest profile events.
-
-Recent events by actively followed authors are cached, resulting in a faster response time.
+Fetches the latest events by a specified author.
 
 ```javascript
-const pubkey = ''; // Specify the pubkey of the user requesting the feed.
-try {
-  const { events, profiles } = await fetchUserFeed({ pubkey });
-} catch (error) {
-  console.error('Could not find a user with the given pubkey.');
-}
-```
+import { fetchEventsByAuthor } from 'huddlers';
 
-Other optional parameters include:
-
-- `url`: The URL of the API that the SDK should fetch events from. Defaults to the Huddlers api url.
-- `limit`: The maximum number of events to fetch. Defaults to 20.
-- `until`: The timestamp to use as the latest timestamp of the events to fetch. This acts as an offset.
-
-The parameter for the `fetchEvents` function is an object with the following properties:
-
-### `fetchEventsByAuthor`
-
-Collects and returns the latest events by the specified author.
-
-The returned object contains:
-
-1. `events`: An array of events by the specified author, in reverse chronological order.
-2. `profiles`: A map containing the latest profiles of the authors of the events. This includes both the specified author as well as authors of any reposted events.
-
-Recent events by the author are cached, resulting in a faster response time in subsequent requests.
-
-```javascript
-const pubkey = ''; // Specify the pubkey of the author.
+const pubkey = ''; // Specify the pubkey of the author
 try {
   const { events, profiles } = await fetchEventsByAuthor({ pubkey });
+  console.log(events, profiles);
 } catch (error) {
-  console.error('Could not find a user with the given pubkey.');
+  console.error('Could not fetch events by author.');
 }
 ```
 
-This also takes in the optional parameters `url`, `limit`, and `until` as described above.
+Parameters:
+
+- `pubkey` (required): The author's public key as a hexadecimal string.
+- `url` (optional): The API URL.
+- `limit` (optional): Maximum number of events to fetch. Defaults to 20.
+- `kinds` (optional): Array of event kinds to filter by.
+- `until` (optional): Fetch events until this timestamp.
+
+### fetchThread
+
+Fetches a selection of comments under a specified event.
+
+```javascript
+import { fetchThread } from 'huddlers';
+
+const id = ''; // Specify the event id
+try {
+  const { events, profiles } = await fetchThread({ id, depth: 2 });
+  console.log(events, profiles);
+} catch (error) {
+  console.error('Could not fetch thread.');
+}
+```
+
+Parameters:
+
+- `id` (required): The event ID as a hexadecimal string.
+- `url` (optional): The API URL.
+- `limit` (optional): Maximum number of events to fetch. Defaults to 20.
+- `depth` (optional): Depth of the thread to fetch. Defaults to 2.
+
+### fetchRoot
+
+Returns the chain of events leading to a specified event.
+
+```javascript
+import { fetchRoot } from 'huddlers';
+
+const id = ''; // Specify the event id
+try {
+  const { events, profiles } = await fetchRoot({ id });
+  console.log(events, profiles);
+} catch (error) {
+  console.error('Could not fetch root event.');
+}
+```
+
+Parameters:
+
+- `id` (required): The event ID as a hexadecimal string.
+- `url` (optional): The API URL.
+
+### fetchEvent
+
+Fetches a single event by its ID.
+
+```javascript
+import { fetchEvent } from 'huddlers';
+
+const id = ''; // Specify the event id
+try {
+  const { event, profiles } = await fetchEvent({ id });
+  console.log(event, profiles);
+} catch (error) {
+  console.error('Could not fetch event.');
+}
+```
+
+Parameters:
+
+- `id` (required): The event ID as a hexadecimal string.
+- `url` (optional): The API URL.
+
+## Error Handling
+
+All API functions return valid data if the requested item has been found. If the item is not found, the functions will throw an error. Hence, it's recommended to use try-catch blocks when calling these functions.
 
 ## License
 
